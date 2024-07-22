@@ -1,7 +1,7 @@
 #!/bin/bash
 
 VENV_DIR="./venv"
-LAUNCH_SCRIPT="python ."
+LAUNCH_SCRIPT="python main.py"
 
 if [[ -f "${VENV_DIR}"/bin/activate ]]
 then
