@@ -1,14 +1,25 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from tqdm import tqdm
+import argparse
 
-should_draw_plot = False
-
-# Use None for no seed
-SEED=None
-
+PLOT = False
+SEED = None
 EPOCHS = 30 * 100
 LEARNING_RATE = 0.00001
+
+parser = argparse.ArgumentParser("Polynomial Regression by datuchela")
+
+parser.add_argument('-s', '--seed', type=int, default=SEED, metavar='Int',
+                    help=f'seed for random numbers (default: {SEED})')
+parser.add_argument('-e', '--epochs', type=int, default=EPOCHS, metavar='Int',
+                    help=f'number of epochs to train (default: {EPOCHS})')
+parser.add_argument('-l', '--learning-rate', type=float, default=LEARNING_RATE, metavar='Float',
+                    help=f'learning rate (default: {LEARNING_RATE})')
+parser.add_argument('-p', '--plot', action='store_true', default=PLOT,
+                    help=f'whether should render plot or not (default: {PLOT})')
+
+args = parser.parse_args()
 
 X_TRAIN = np.array([-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 Y_TRAIN = np.array([9, 4, 1, 0, 1, 4, 9, 16, 25, 36, 49, 64, 81])
@@ -16,7 +27,7 @@ Y_TRAIN = np.array([9, 4, 1, 0, 1, 4, 9, 16, 25, 36, 49, 64, 81])
 X_TEST = np.array([10, 11, 12, 13, 14])
 Y_TEST = np.array([100, 121, 144, 169, 196])
 
-np.random.seed(SEED)
+np.random.seed(args.seed)
 
 WEIGHTS = np.array([
     100*np.random.normal(),
@@ -35,7 +46,7 @@ def predict(x, weights):
     return result
 
 
-if should_draw_plot == True:
+if args.plot == True:
     _, axs = plt.subplots()
     fignum = plt.get_fignums()[0]
     plt.ion()
@@ -96,16 +107,16 @@ def test(x_test, y_test, weights):
 
 def main():
     print("===================== TRAINING ================================================")
-    print("SEED:", SEED)
-    print("LEARNING RATE:", LEARNING_RATE)
+    print("SEED:", args.seed)
+    print("LEARNING RATE:", args.learning_rate)
     print("INITIAL WEIGHTS:", WEIGHTS)
     weights = train(
         weights=np.copy(WEIGHTS), 
         x_train=X_TRAIN, 
         y_train=Y_TRAIN, 
-        learning_rate=LEARNING_RATE, 
-        epochs=EPOCHS, 
-        plot=should_draw_plot,
+        learning_rate=args.learning_rate, 
+        epochs=args.epochs, 
+        plot=args.plot,
     )
 
     print("\n===================== TRAINING DONE ===========================================")
@@ -116,7 +127,7 @@ def main():
     mean_squared_error = test(X_TEST, Y_TEST, weights)
     print("MEAN SQUARED ERROR:", mean_squared_error)
 
-    if should_draw_plot == True:
+    if args.plot == True:
         while plt.fignum_exists(fignum):
             plt.pause(1.0)
 
