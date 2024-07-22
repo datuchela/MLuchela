@@ -4,10 +4,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 from tqdm import tqdm
 
-PLOT = False
-SEED = None
-EPOCHS = 30 * 100
-LEARNING_RATE = 0.00001
+DEFAULT_PLOT = False
+DEFAULT_SEED = None
+DEFAULT_EPOCHS = 30 * 100
+DEFAULT_LEARNING_RATE = 0.00001
 
 parser = argparse.ArgumentParser("Polynomial Regression by datuchela")
 
@@ -15,32 +15,32 @@ parser.add_argument(
     "-s",
     "--seed",
     type=int,
-    default=SEED,
+    default=DEFAULT_SEED,
     metavar="Int",
-    help=f"seed for random numbers (default: {SEED})",
+    help=f"seed for random numbers (default: {DEFAULT_SEED})",
 )
 parser.add_argument(
     "-e",
     "--epochs",
     type=int,
-    default=EPOCHS,
+    default=DEFAULT_EPOCHS,
     metavar="Int",
-    help=f"number of epochs to train (default: {EPOCHS})",
+    help=f"number of epochs to train (default: {DEFAULT_EPOCHS})",
 )
 parser.add_argument(
     "-l",
     "--learning-rate",
     type=float,
-    default=LEARNING_RATE,
+    default=DEFAULT_LEARNING_RATE,
     metavar="Float",
-    help=f"learning rate (default: {LEARNING_RATE})",
+    help=f"learning rate (default: {DEFAULT_LEARNING_RATE})",
 )
 parser.add_argument(
     "-p",
     "--plot",
     action="store_true",
-    default=PLOT,
-    help=f"whether should render plot or not (default: {PLOT})",
+    default=DEFAULT_PLOT,
+    help=f"whether should render plot or not (default: {DEFAULT_PLOT})",
 )
 
 args = parser.parse_args()
