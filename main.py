@@ -6,8 +6,8 @@ from tqdm import tqdm
 
 DEFAULT_PLOT = False
 DEFAULT_SEED = None
-DEFAULT_EPOCHS = 30 * 100
-DEFAULT_LEARNING_RATE = 0.00001
+DEFAULT_EPOCHS = 15 * 1000
+DEFAULT_LEARNING_RATE = 1e-04
 
 parser = argparse.ArgumentParser("Polynomial Regression by datuchela")
 
