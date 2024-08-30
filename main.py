@@ -65,14 +65,11 @@ WEIGHTS = np.array(
 def predict(x, weights):
     result = 0
     for i in range(weights.size):
-        if i == 0:
-            result += weights[0]
-            continue
         result += (x**i) * weights[i]
     return result
 
 
-if args.plot == True:
+if args.plot is True:
     _, axs = plt.subplots()
     fignum = plt.get_fignums()[0]
     plt.ion()
@@ -108,7 +105,7 @@ def train(weights, x_train, y_train, epochs, learning_rate, plot):
         )
         epochs_bar.update()
 
-        if plot == True:
+        if plot is True:
             errors.append(0.5 * ((errors_sum / x_train.size) ** 2))
             axs.cla()
             # axs.plot(x_train, predict(x_train, weights))
@@ -134,13 +131,14 @@ def test(x_test, y_test, weights):
         prediction = predict(x, weights)
         error = prediction - y
         sum_of_errors += error
-        print("input:", x, "output:", prediction, "expected:", y, "error:", error)
+        print("input:", x, "output:", prediction,
+              "expected:", y, "error:", error)
     return 0.5 * (sum_of_errors / x_test.size) ** 2
 
 
 def main():
     print(
-        "===================== TRAINING ================================================"
+        "===================== TRAINING ======================================"
     )
     print("SEED:", args.seed)
     print("LEARNING RATE:", args.learning_rate)
@@ -155,18 +153,18 @@ def main():
     )
 
     print(
-        "\n===================== TRAINING DONE ==========================================="
+        "\n===================== TRAINING DONE ==============================="
     )
     print("INITIAL WEIGHTS:", WEIGHTS)
     print("FINAL WEIGHTS:  ", weights)
 
     print(
-        "\n===================== PREDICTIONS ============================================="
+        "\n===================== PREDICTIONS ================================="
     )
     mean_squared_error = test(X_TEST, Y_TEST, weights)
     print("MEAN SQUARED ERROR:", mean_squared_error)
 
-    if args.plot == True:
+    if args.plot is True:
         while plt.fignum_exists(fignum):
             plt.pause(1.0)
 
